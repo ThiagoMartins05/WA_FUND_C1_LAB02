@@ -2,8 +2,20 @@ name: Simple Local
 on: 
   push:
 jobs:
-  first-job:
+  build-node:
     runs-on: ubuntu-latest
+    container: 
+      image: node:18
     steps:
-      - name: Diga oi
-        run: echo "Hello World!"
+      - name: Verificar versão do Node.js
+        run: node --version
+      - name: Verificar versão do NPM
+        run: npm --version
+      - name: Fazer checkout do código
+        uses: actions/checkout@v3
+      - name: Instalar dependências
+        run: npm install
+      - name: Adicionar Moment.js
+        run: npm install --save moment
+      - name: Executar aplicação
+        run: node app.js
